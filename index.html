@@ -434,48 +434,29 @@
     <script src="js/version-check.js"></script>
     <!-- 禁止F12 -->
     <script>
-    (function(){
-        // 混淆关键函数名
-        const _0xad3b = ['close', 'body', 'innerHTML', 'F12', 'keydown', 'addEventListener'];
-        const _0x12df = function(_0x1, _0x2) {
-            _0x1 = _0x1 - 0x0;
-            let _0x3 = _0xad3b[_0x1];
-            return _0x3;
-        };
-        
-        // 动态检测函数
-        function checkDevTools() {
-            const _0x4 = new Date().getTime();
-            debugger;
-            const _0x5 = new Date().getTime() - _0x4;
-            if(_0x5 > 100) {
-                window[_0x12df('0x0')]();
-                document[_0x12df('0x1')][_0x12df('0x2')] = '<h1>安全警告：禁止调试</h1>';
-            }
-        }
-
-        // 多重事件监听
-        window[_0x12df('0x5')](_0x12df('0x4'), function(_0x6) {
-            if(_0x6[_0x12df('0x3')] === _0x12df('0x3') || _0x6.keyCode === 0x7b) {
-                _0x6.preventDefault();
-                checkDevTools();
+        // 检测F12按键
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                window.close();
+                document.body.innerHTML = '<h1>禁止使用开发者工具</h1>';
             }
         });
 
-        // 定时检测
-        setInterval(function(){
-            checkDevTools();
-            if(window.outerWidth - window.innerWidth > 200 || 
-               window.outerHeight - window.innerHeight > 200) {
-                window[_0x12df('0x0')]();
+        // 检测窗口大小变化
+        setInterval(function() {
+            const threshold = 150;
+            if (window.outerWidth - window.innerWidth > threshold || 
+                window.outerHeight - window.innerHeight > threshold) {
+                window.close();
+                document.body.innerHTML = '<h1>检测到开发者工具</h1>';
             }
-        }, 800);
+        }, 500);
 
-        // 禁用右键和选择
-        document.oncontextmenu = document.onselectstart = function() {
+        // 禁用右键菜单
+        document.oncontextmenu = function() {
             return false;
         };
-    })();
     </script>
     <!-- 添加弹窗和URL搜索参数处理脚本 -->
     <script src="js/index-page.js"></script>
