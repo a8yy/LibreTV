@@ -433,26 +433,48 @@
     <!-- 版本检测脚本 -->
     <script src="js/version-check.js"></script>
     <!-- 禁止F12 -->
-    <script type="text/javascript">
-	// 禁用右键菜单
-	document.addEventListener('contextmenu', (e) => {
-	    e.preventDefault();
-	});
-	
-	// 检测是否按下了 F12 或 Ctrl+Shift+I
-	document.addEventListener('keydown', (e) => {
-	    if (
-	        (e.key === 'F12' || 
-	         (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-	         (e.ctrlKey && e.shiftKey && e.key === 'C') || 
-	         (e.ctrlKey && e.shiftKey && e.key === 'J') || 
-	         (e.ctrlKey && e.shiftKey && e.key === 'K'))
-	    ) {
-	        e.preventDefault();
-	        console.log('禁止打开开发者工具！');
-	        // 可以在这里执行其他操作
-	    }
-	});
+<script src="######"></script>
+//这里设置为你自己的layer.js所在位置
+<script type="text/javascript">
+<!--复制弹框-->
+document.body.oncopy = function() {layer.msg('复制成功，若要转载请务必保留本文链接！');};
+<!--禁用F12-->
+document.onkeydown = function(){
+    if(window.event && window.event.keyCode == 1.3) {
+        layer.msg("F12被禁用");
+        event.keyCode=0;
+        event.returnValue=false;
+    }
+这里修改成你的layer.js所在位置
+ 
+如果有幸等js未加载完之前按了f12，那也没关系，还可以禁止调试
+<!--禁止调试-->
+(function noDebuger() {
+    function testDebuger() {
+        var d = new Date();
+        debugger;
+        if (new Date() - d > 10) {
+            document.body.innerHTML = '<div style="width: 100%;height: 50px;font-size: 30px;text-align: center;font-weight: bold;">都说了F12被禁用，还试<a href="/" target="_blank" style="color:#4285f4;">点击返回</a>~</div>';
+            return true;
+        }
+        return false;
+    }
+    function start() {
+        while (testDebuger()) {
+            testDebuger();
+        }
+    }
+    if (!testDebuger()) {
+        window.onblur = function () {
+            setTimeout(function () {
+                start();
+            }, 500)
+        }
+    }else {
+        start();
+    }
+})();
+}    
 </script>
     <!-- 添加弹窗和URL搜索参数处理脚本 -->
     <script src="js/index-page.js"></script>
