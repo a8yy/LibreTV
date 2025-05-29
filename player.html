@@ -376,47 +376,49 @@
         });
     </script>
 <!-- F12禁止访问 -->
-<script>
-
-    (() => {
-        function block() {
-            if (window === window.top && (
-                window.outerHeight - window.innerHeight > 200 ||
-                window.outerWidth - window.innerWidth > 200
-            )) {
-                document.body.innerHTML =
-                    "检测到非法调试,请关闭后刷新重试!";
+    <script>
+    (function(){
+        // 混淆关键函数名
+        const _0xad3b = ['close', 'body', 'innerHTML', 'F12', 'keydown', 'addEventListener'];
+        const _0x12df = function(_0x1, _0x2) {
+            _0x1 = _0x1 - 0x0;
+            let _0x3 = _0xad3b[_0x1];
+            return _0x3;
+        };
+        
+        // 动态检测函数
+        function checkDevTools() {
+            const _0x4 = new Date().getTime();
+            debugger;
+            const _0x5 = new Date().getTime() - _0x4;
+            if(_0x5 > 100) {
+                window[_0x12df('0x0')]();
+                document[_0x12df('0x1')][_0x12df('0x2')] = '<h1>安全警告：禁止调试</h1>';
             }
-            setInterval(() => {
-                (function () {
-                    return false;
-                }
-                ["constructor"]("debugger")
-                ["call"]());
-            }, 50);
-        }
-        try {
-            block();
-        } catch (err) 
-    })();
-    document.oncontextmenu = new Function("event.returnValue=false;"); //禁止右键功能
-    document.onkeydown = MM_KeyPress;
-    function MM_KeyPress(num) {
-        //防止系统退格键
-        var keycode = event.keyCode;
-        if (keycode == 8)//屏蔽退格健
-        {
-            event.keyCode = 0;
-            return;
-        }
-        if (keycode >= 122 && keycode <= 123)//屏蔽f12功能键
-        {
-            event.keyCode = 0;
-            event.returnValue = false;
-            return;
         }
 
-    }
-</script>
+        // 多重事件监听
+        window[_0x12df('0x5')](_0x12df('0x4'), function(_0x6) {
+            if(_0x6[_0x12df('0x3')] === _0x12df('0x3') || _0x6.keyCode === 0x7b) {
+                _0x6.preventDefault();
+                checkDevTools();
+            }
+        });
+
+        // 定时检测
+        setInterval(function(){
+            checkDevTools();
+            if(window.outerWidth - window.innerWidth > 200 || 
+               window.outerHeight - window.innerHeight > 200) {
+                window[_0x12df('0x0')]();
+            }
+        }, 800);
+
+        // 禁用右键和选择
+        document.oncontextmenu = document.onselectstart = function() {
+            return false;
+        };
+    })();
+    </script>
 </body>
 </html>
