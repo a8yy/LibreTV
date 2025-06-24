@@ -117,6 +117,14 @@ const API_SITES = {
         api: 'https://api.yzzy-api.com/inc/api_mac10.php',
         name: '优质资源'
     },
+        aosika: {
+        api: 'https://aosikazy6.com/api.php/provide/vod/',
+        name: '奥斯卡资源'
+    },
+        hgzy: {
+        api: 'https://www.avre06.com/api.php/Prodao/vod/',
+        name: '黄瓜资源'
+    },
     testSource: {
         api: 'https://www.example.com/api.php/provide/vod',
         name: '空内容测试源',
