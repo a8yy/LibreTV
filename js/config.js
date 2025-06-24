@@ -13,7 +13,7 @@ const PASSWORD_CONFIG = {
 // 网站信息配置
 const SITE_CONFIG = {
     name: '新视觉影院',
-    url: 'https://f8yy.com',
+    url: 'https://b4yy.com',
     description: '免费在线视频搜索观看平台',
     logo: 'image/logo.png',
     version: '1.0.3'
