@@ -35,10 +35,10 @@ async function checkForUpdates() {
         });
         
         // 获取最新版本
-        let latestVersion;
+        let currentVersion;
         const VERSION_URL = {
-            PROXY: 'https://raw.ihtw.moe/raw.githubusercontent.com/LibreSpark/LibreTV/main/VERSION.txt',
-            DIRECT: 'https://raw.githubusercontent.com/LibreSpark/LibreTV/main/VERSION.txt'
+            PROXY: '',
+            DIRECT: ''
         };
         const FETCH_TIMEOUT = 1500;
         
@@ -49,13 +49,13 @@ async function checkForUpdates() {
                 setTimeout(() => reject(new Error('代理请求超时')), FETCH_TIMEOUT)
             );
             
-            latestVersion = await Promise.race([proxyPromise, timeoutPromise]);
+            currentVersion = await Promise.race([proxyPromise, timeoutPromise]);
             console.log('通过代理服务器获取版本成功');
         } catch (error) {
             console.log('代理请求失败，尝试直接请求:', error.message);
             try {
                 // 代理失败后尝试直接获取
-                latestVersion = await fetchVersion(VERSION_URL.DIRECT, '获取最新版本失败');
+                currentVersion = await fetchVersion(VERSION_URL.DIRECT, '获取最新版本失败');
                 console.log('直接请求获取版本成功');
             } catch (directError) {
                 console.error('所有版本检查请求均失败:', directError);
@@ -64,11 +64,11 @@ async function checkForUpdates() {
         }
         
         console.log('当前版本:', currentVersion);
-        console.log('最新版本:', latestVersion);
+        console.log('最新版本:', currentVersion);
         
         // 清理版本字符串（移除可能的空格或换行符）
         const cleanCurrentVersion = currentVersion.trim();
-        const cleanLatestVersion = latestVersion.trim();
+        const cleanLatestVersion = currentVersion.trim();
         
         // 返回版本信息
         return {
@@ -148,7 +148,7 @@ function addVersionInfoToFooter() {
                 const updateBtn = versionElement.querySelector('span');
                 if (updateBtn) {
                     updateBtn.addEventListener('click', () => {
-                        window.open('https://github.com/LibreSpark/LibreTV', '_blank');
+                        window.open('', '_blank');
                     });
                 }
             }, 100);
