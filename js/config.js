@@ -121,10 +121,6 @@ const API_SITES = {
         api: 'https://apiyutu.com/api.php/provide/vod/',
         name: '玉兔资源'
     },
-        hgzy: {
-        api: 'https://www.avre06.com/api.php/Prodao/vod/',
-        name: '黄瓜资源'
-    },
     testSource: {
         api: 'https://www.example.com/api.php/provide/vod',
         name: '空内容测试源',
